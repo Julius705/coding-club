@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const {registerClubMembers, getClubMembers, updateMember, deleteMember} = require("../controllers/clubRegistrationController");
+const {
+       registerClubMember,
+       getClubMember,
+       updateMember,
+       deleteMember
+    } = require("../controllers/clubRegistrationController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/", registerClubMembers);
-router.get("/", getClubMembers);
-router.put("/", updateMember);
-router.delete("/", deleteMember);
+router.post("/", registerClubMember);
+router.get("/",  getClubMember);
+router.put("/:id", authMiddleware, updateMember);
+router.delete("/:id", authMiddleware, deleteMember);
 module.exports = router;

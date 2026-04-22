@@ -1,6 +1,8 @@
 const User = require("../Models/Users");
 const bcrypt = require("bcryptjs");
 
+
+
 const user = async (req, res) => {
   try {
     const {name, role, email, password}= req.body;
@@ -19,10 +21,13 @@ const user = async (req, res) => {
   res.json(user)
   } catch (err) {
     res.status(500).json({
-      error: "server error", error: err.message
+      message: "Server error", details: err.message
     })
   }
 }
+
+
+
 const getUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -34,17 +39,17 @@ const getUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({
-      error: "Server error", error: err.message
+      message: "Server error", details: err.message
     })
   }
 }
 const updateUser = async (req, res)  => {
  try {
-  const {id} = req.params;
+ const {id} = req.params;
  const {name, role} = req.body;
  const upDatedUser = await User.findByIdAndUpdate(
   id,
-  {name, role},
+  req.body,
   {new: true}
  );
  if (!upDatedUser) {
@@ -57,7 +62,7 @@ const updateUser = async (req, res)  => {
  });
  } catch (error) {
   res.status(500).json({
-    error: "Server error", error: err.message
+    message: "Server error", details: err.message
   });
  }
 }
@@ -71,9 +76,10 @@ const deleteUser = async (req, res) => {
           message: "User not found"
         });
     }
+    res.status(200).json({message: "User deleted successfully"});
   } catch (error) {
     res.status(500).json({
-      error: "Server error", error: err.message
+      message: "Server error", details: err.message
     })
   }
 }
