@@ -6,7 +6,10 @@ const userRoute = require("./router/userRoute");
 const clubMembersRoute = require("./router/clubMembersRoute");
 const authRoute = require("./router/authRoute");
 const app = express();
-const allowedOrigins = ["http://localhost:3000", "http://localhost:5173"];
+const allowedOrigins = ["http://localhost:3000",
+                        "http://localhost:5173",
+                        "https://jik-coding-club.netlify.app"
+                      ];
 const corsOptions = {
   origin: allowedOrigins,
   methods: "GET, POST, PUT, DELETE",
