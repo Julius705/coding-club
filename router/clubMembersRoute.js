@@ -10,7 +10,7 @@ const {
 const authMiddleware = require("../middleware/authMiddleware");
 
 router.post("/", registerClubMember);
-router.get("/",  getClubMember);
+router.get("/", authMiddleware, getClubMember);
 router.put("/:id", authMiddleware, updateMember);
 router.delete("/:id", authMiddleware, deleteMember);
 module.exports = router;
